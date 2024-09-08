@@ -1,0 +1,351 @@
+<!DOCTYPE html>  
+<html lang="en">  
+
+<head>  
+    <meta charset="UTF-8">  
+    <title>Login</title>  
+    <meta name="description" content="Login - Register Template">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">  
+    <style>  
+        /* Your existing styles */  
+        body {  
+            font-family: 'Roboto', sans-serif;  
+            background: linear-gradient(to right, #6A11CB, #2575FC);  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            height: 100vh;  
+            margin: 0;  
+        }  
+
+        #container-login {  
+            background-color: #FFFFFF;  
+            padding: 40px;  
+            border-radius: 10px;  
+            box-shadow: 0 4px 30px rgba(51, 50, 50, 0.1);  
+            width: 400px;  
+            text-align: center;  
+        }  
+
+        #title {  
+            font-size: 28px;  
+            font-weight: 500;  
+            margin-bottom: 20px;  
+            color: #333;  
+        }  
+
+        .material-icons.lock {  
+            font-size: 40px;  
+            color: #6A11CB;  
+        }  
+
+        .input {  
+            margin-bottom: 20px;  
+            position: relative;  
+        }  
+
+        .input-addon {  
+            position: absolute;  
+            top: 10px;  
+            left: 10px;  
+        }  
+
+        .input-addon .material-icons {  
+            font-size: 20px;  
+            color: #757575;  
+        }  
+
+        .input input {  
+            width: 90%;  
+            padding: 10px 10px 10px 40px;  
+            border: 1px solid #ddd;  
+            border-radius: 5px;  
+            outline: none;  
+            transition: border-color 0.3s;  
+        }  
+
+        .input input:focus {  
+            border-color: #6A11CB;  
+        }  
+
+        .remember-me {  
+            text-align: left;  
+            margin-bottom: 20px;  
+        }  
+
+        .remember-me input {  
+            margin-right: 5px;  
+        }  
+
+        input[type="submit"] {  
+            background-color: #6A11CB;  
+            color: #fff;  
+            padding: 10px;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            width: 100%;  
+            font-size: 16px;  
+            margin-bottom: 20px;  
+            transition: background-color 0.3s;  
+        }  
+
+        input[type="submit"]:hover {  
+            background-color: #2575FC;  
+        }  
+
+        .forgot-password a,  
+        .privacy a {  
+            color: #6A11CB;  
+            text-decoration: none;  
+            transition: color 0.3s;  
+        }  
+
+        .forgot-password a:hover,  
+        .privacy a:hover {  
+            color: #2575FC;  
+        }  
+
+        .register {  
+            margin-top: 20px;  
+        }  
+
+        .register a {  
+            color: #6A11CB;  
+            text-decoration: none;  
+            font-weight: 500;  
+        }  
+
+        .register a:hover {  
+            color: #2575FC;  
+        }  
+
+        #error-message {  
+            color: red;  
+            margin-top: 10px;  
+        }  
+
+        /* Modal Styling */  
+        .modal {  
+            display: none;  
+            position: fixed;  
+            z-index: 1000;  
+            left: 0;  
+            top: 0;  
+            width: 100%;  
+            height: 100%;  
+            background-color: rgba(0, 0, 0, 0.6);  
+            align-items: center;
+            justify-content: center;  
+        }  
+
+        .modal-content {  
+            background-color: #fff;  
+            padding: 20px;  
+            border-radius: 10px;  
+            width: 300px;  
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+            text-align: center;  
+        }  
+
+        .modal-content h3 {  
+            margin: 0 0 15px;  
+        }  
+
+        .modal-content input[type="email"] {  
+            width: 90%;  
+            padding: 10px;  
+            margin-bottom: 15px;  
+            border: 1px solid #ddd;  
+            border-radius: 5px;  
+        }  
+
+        .modal-content button {  
+            background-color: #6A11CB;  
+            color: #fff;  
+            padding: 10px;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            width: 100%;  
+        }  
+
+        .modal-content button:hover {  
+            background-color: #2575FC;  
+        }  
+
+        .close {  
+            color: #333;  
+            float: right;  
+            font-size: 20px;  
+            font-weight: bold;  
+            cursor: pointer;  
+        }  
+    </style>  
+</head>  
+
+<body>  
+    <div id="container-login">  
+        <div id="title">  
+            <i class="material-icons lock">lock</i> Login  
+        </div>  
+
+        <form id="login-form">  
+            <div class="input">  
+                <div class="input-addon">  
+                    <i class="material-icons">face</i>  
+                </div>  
+                <input id="login-username" placeholder="Username" type="text" required class="validate" autocomplete="off" aria-label="Username">  
+            </div>  
+
+            <div class="input">  
+                <div class="input-addon">  
+                    <i class="material-icons">vpn_key</i>  
+                </div>  
+                <input id="login-password" placeholder="Password" type="password" required class="validate" autocomplete="off" aria-label="Password">  
+            </div>  
+
+            <div class="remember-me">  
+                <input type="checkbox" id="remember-me">  
+                <label for="remember-me" style="color: #757575">Remember Me</label>  
+            </div>  
+
+            <input type="submit" value="Login">  
+        </form>  
+
+        <div class="forgot-password">  
+            <a href="#" id="forgot-password-link">Forgot your password?</a>  
+        </div>  
+        <div class="privacy">  
+            <a href="#">Privacy Policy</a>  
+        </div>  
+
+        <div class="register">  
+            <span style="color: #657575">Don't have an account yet?</span>  
+            <a href="./register.html" id="register-link">Register here</a>  
+        </div>  
+
+        <!-- Error message display area -->  
+        <div id="error-message"></div>  
+        <div id="success-message" style="color: green;"></div> <!-- Success message area -->  
+    </div>  
+
+    <!-- Forgot Password Modal -->  
+    <div class="modal" id="forgot-password-modal">  
+        <div class="modal-content">  
+            <span class="close" id="close-modal">&times;</span>  
+            <h3>Reset Password</h3>  
+            <input type="email" id="forgot-password-email" placeholder="Enter your email" required>  
+            <button id="send-reset-link">Send Reset Link</button>  
+        </div>  
+    </div>  
+
+    <script>  
+        document.addEventListener('DOMContentLoaded', () => {  
+            const modal = document.getElementById('forgot-password-modal');  
+            const forgotPasswordLink = document.getElementById('forgot-password-link');  
+            const closeModal = document.getElementById('close-modal');  
+            const sendResetLinkButton = document.getElementById('send-reset-link');  
+            const loginForm = document.getElementById('login-form');  
+            const errorMessage = document.getElementById('error-message');  
+            const successMessage = document.getElementById('success-message');  
+
+            // Display success message from URL parameters  
+            const queryParams = new URLSearchParams(window.location.search);  
+            if (queryParams.has('message')) {  
+                successMessage.textContent = queryParams.get('message');  
+                setTimeout(() => {  
+                    successMessage.textContent = ''; // Clear message after 5 seconds  
+                }, 5000);  
+            }  
+
+            // Show the forgot password modal  
+            forgotPasswordLink.addEventListener('click', (e) => {  
+                e.preventDefault();  
+                modal.style.display = 'flex';  
+            });  
+
+            // Close the modal  
+            closeModal.addEventListener('click', () => {  
+                modal.style.display = 'none';  
+            });  
+
+            // Close modal when clicking outside of it  
+            window.addEventListener('click', (event) => {  
+                if (event.target === modal) {  
+                    modal.style.display = 'none';  
+                }  
+            });  
+
+            // Send password reset link  
+            sendResetLinkButton.addEventListener('click', async () => {  
+                const email = document.getElementById('forgot-password-email').value;  
+                if (!email) {  
+                    alert('Please enter your email.');  
+                    return;  
+                }  
+
+                try {  
+                    const response = await fetch('http://localhost:5000/api/auth/reset-password', {  
+                        method: 'POST',  
+                        headers: {  
+                            'Content-Type': 'application/json',  
+                        },  
+                        body: JSON.stringify({ email }),  
+                    });  
+
+                    const data = await response.json();  
+                    if (response.ok) {  
+                        alert('Password reset link sent! Please check your email.');  
+                        modal.style.display = 'none';  
+                    } else {  
+                        alert(data.message || 'Failed to send reset link.');  
+                    }  
+                } catch (error) {  
+                    alert('An error occurred. Please try again later.');  
+                }  
+            });  
+
+            // Handle login form submission  
+            loginForm.addEventListener('submit', async (event) => {  
+                event.preventDefault();  
+
+                const username = document.getElementById('login-username').value;  
+                const password = document.getElementById('login-password').value;  
+
+                try {  
+                    const response = await fetch('http://localhost:5000/api/auth/login', {  
+                        method: 'POST',  
+                        headers: {  
+                            'Content-Type': 'application/json',  
+                        },  
+                        body: JSON.stringify({ username, password }),  
+                    });  
+
+                    const data = await response.json();  
+
+                    if (response.ok) {  
+                        localStorage.setItem('token', data.token); // Store token in local storage  
+                        errorMessage.textContent = ''; // Clear error message  
+                        window.location.href = './index.html'; // Redirect to dashboard  
+                    } else {  
+                        errorMessage.textContent = data.message || 'Login failed'; // Show error message  
+                    }  
+                } catch (error) {  
+                    errorMessage.textContent = 'An error occurred. Please try again.'; // Show error message  
+                }  
+            });  
+
+            const urlParams = new URLSearchParams(window.location.search);  
+            const message = urlParams.get('message');  
+            
+            if (message === 'password_reset_success') {  
+                alert('Your password has been reset successfully. Please log in.');  
+            }  
+        });  
+    </script>  
+</body>  
+
+</html>

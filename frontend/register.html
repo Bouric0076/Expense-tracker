@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/expense-tracker/frontend/public/css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F2F2F2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container-register">
+        <div id="title">
+            <i class="material-icons lock">lock</i> Register
+        </div>
+
+        <!-- Register Form -->
+        <form id="register-form">
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">email</i>
+                </div>
+                <input id="email" placeholder="Email" type="email" required class="validate" autocomplete="off" aria-label="Email">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <input id="register-username" placeholder="Username" type="text" required class="validate" autocomplete="off" aria-label="Username">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <input id="register-password" placeholder="Password" type="password" required class="validate" autocomplete="off" aria-label="Password" minlength="8">
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="terms" required>
+                <label for="terms" style="color: #757575">I accept the Terms of Service</label>
+            </div>
+
+            <input type="submit" value="Register">
+        </form>
+
+        <div class="privacy">
+            <a href="#">Privacy Policy</a>
+        </div>
+
+        <div class="register">
+            <span style="color: #657575">Do you already have an account?</span>
+            <a href="./login.html" id="login-link">Login</a>
+        </div>
+    </div>
+
+    <!-- Script to Handle Form Submission -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('register-form').addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+        
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('register-username').value;
+                const password = document.getElementById('register-password').value;
+        
+                console.log("Registering with data:", { email, username, password });
+        
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, username, password })
+                    });
+        
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Error occurred during registration:', errorData);
+
+                        // Display error messages
+                       const errors = errorData.errors;
+                       if (errors && errors.length > 0) {
+                           errors.forEach(error => {
+                              if (error.path === 'password') {
+                                  alert(`Password Error: ${error.msg}`);
+                              } else {
+                                  alert(`Error: ${error.msg}`);
+                              }
+                           });
+                        } else {
+                           alert('Registration failed. Please check your input.');
+                        }
+                    } else {
+                        const responseData = await response.json();
+                        console.log('Registration successful:', responseData);
+                        alert("Registration successful! Please login. ");
+                        window.location.href = "./login.html";
+                    }
+                } catch (error) {
+                    console.error('Network error occurred during registration:', error);
+                    alert('Network error occurred during registration.');
+                }
+            });
+        });
+        </script>
+        
+        
+</body>
+</html>
